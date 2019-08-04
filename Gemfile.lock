@@ -1,0 +1,27 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    async (1.20.1)
+      console (~> 1.0)
+      nio4r (~> 2.3)
+      timers (~> 4.1)
+    async-io (1.24.0)
+      async (~> 1.14)
+    async-websocket (0.8.0)
+      async-io
+      websocket-driver (~> 0.7.0)
+    console (1.4.0)
+    nio4r (2.4.0)
+    timers (4.3.0)
+    websocket-driver (0.7.1)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  async-websocket (~> 0.8.0)
+
+BUNDLED WITH
+   2.0.2
