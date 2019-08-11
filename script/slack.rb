@@ -4,12 +4,16 @@ require 'csv'
 
 Dotenv.load
 
+Slack.configure do |conf|
+  conf.token = ENV['SLACK_API_TOKEN']
+end
+
 groups, members = [], []
 numbers_of_group = ENV['NUMBERS_OF_GROUP'].to_i
 
 def load_members(members)
   read_csv(members)
-  return members
+  members.shuffle
 end
 
 def read_csv(members)
@@ -39,10 +43,6 @@ end
 def assign_member_into_groups(group, number, member)
   group << number
   group << member
-end
-
-Slack.configure do |conf|
-  conf.token = ENV['SLACK_API_TOKEN']
 end
 
 members = load_members(members)
