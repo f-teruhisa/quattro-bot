@@ -4,15 +4,18 @@ require 'csv'
 
 Dotenv.load
 
-groups = []
+groups, members = [], []
 numbers_of_group = ENV['NUMBERS_OF_GROUP'].to_i
 
+def load_members(members)
+  read_csv(members)
+  return members
+end
+
 def read_csv(members)
-  members = []
   CSV.foreach('data/members.csv') do |member|
     members << member
   end
-  return members
 end
 
 def create_groups(numbers_of_group, groups, members)
@@ -42,7 +45,7 @@ Slack.configure do |conf|
   conf.token = ENV['SLACK_API_TOKEN']
 end
 
-members = read_csv(members)
+members = load_members(members)
 create_groups(numbers_of_group, groups, members)
 
 client = Slack::Web::Client.new
