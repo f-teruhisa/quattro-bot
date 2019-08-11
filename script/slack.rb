@@ -4,12 +4,20 @@ require 'csv'
 
 Dotenv.load
 
-Slack.configure do |conf|
-  conf.token = ENV['SLACK_API_TOKEN']
-end
-
 groups, members = [], []
 numbers_of_group = ENV['NUMBERS_OF_GROUP'].to_i
+
+def setup_slack
+  set_slack_api_token
+  client = Slack::Web::Client.new
+  return client
+end
+
+def set_slack_api_token
+  Slack.configure do |conf|
+    conf.token = ENV['SLACK_API_TOKEN']
+  end
+end
 
 def load_members(members)
   read_csv(members)
@@ -60,8 +68,7 @@ def save_csv_file(grouped_members_csv)
   end
 end
 
+client = setup_slack
 members = load_members(members)
 create_groups(numbers_of_group, groups, members)
-
-client = Slack::Web::Client.new
 client.chat_postMessage(channel: '#connpass_notification', text: 'Hello World', as_user: true)
