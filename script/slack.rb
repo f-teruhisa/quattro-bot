@@ -59,7 +59,7 @@ def split_members(members, numbers_of_group, groups, csv)
 end
 
 def assign_member_into_groups(group, number, member, csv)
-  group << number
+  group << number unless group.include?(number)
   group << member
   csv << group
 end
