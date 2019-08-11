@@ -24,12 +24,20 @@ end
 
 def create_groups(numbers_of_group, groups, members)
   numbers_of_group.times { create_group(groups) }
-  split_members(members, numbers_of_group, groups)
+  generate_csv_file(members, numbers_of_group, groups)
 end
 
 def create_group(groups)
   empty_group = Array.new
   groups << empty_group
+end
+
+def generate_csv_file(members, numbers_of_group, groups)
+  grouped_members_csv = CSV.generate do |csv|
+    split_members(members, numbers_of_group, groups)
+    csv << groups
+  end
+  save_csv_file(grouped_members_csv)
 end
 
 def split_members(members, numbers_of_group, groups)
@@ -38,11 +46,18 @@ def split_members(members, numbers_of_group, groups)
     group = groups[number]
     assign_member_into_groups(group, number+1, member)
   end
+  return groups
 end
 
 def assign_member_into_groups(group, number, member)
   group << number
   group << member
+end
+
+def save_csv_file(grouped_members_csv)
+  File.open('data/grouped_members_csv', 'w') do |file|
+    file.write(grouped_members_csv)
+  end
 end
 
 members = load_members(members)
