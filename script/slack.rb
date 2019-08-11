@@ -9,7 +9,7 @@ numbers_of_group = ENV['NUMBERS_OF_GROUP'].to_i
 
 def read_csv(members)
   members = []
-  CSV.foreach('data/members.csv', headers: true) do |member|
+  CSV.foreach('data/members.csv') do |member|
     members << member
   end
   return members
@@ -30,7 +30,6 @@ def split_members(members, numbers_of_group, groups)
     number = i % numbers_of_group
     group = groups[number]
     assign_member_into_groups(group, number+1, member)
-    puts group
   end
 end
 
