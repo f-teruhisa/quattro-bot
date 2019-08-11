@@ -52,6 +52,7 @@ DEPENDENCIES
   async-websocket (~> 0.8.0)
   csv
   dotenv
+  faraday
   slack-ruby-client
 
 BUNDLED WITH

@@ -63,7 +63,7 @@ def assign_member_into_groups(group, number, member)
 end
 
 def save_csv_file(grouped_members_csv)
-  File.open('data/grouped_members_csv', 'w') do |file|
+  File.open('data/grouped_members.csv', 'w') do |file|
     file.write(grouped_members_csv)
   end
 end
