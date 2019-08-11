@@ -7,6 +7,7 @@ Dotenv.load
 today = Date.today.strftime("%Y/%m/%d")
 groups, members = [], []
 numbers_of_group = ENV['NUMBERS_OF_GROUP'].to_i
+comment = ENV['COMMENT'].to_s
 
 def setup_slack
   set_slack_api_token
@@ -69,18 +70,18 @@ def save_csv_file(grouped_members_csv)
   end
 end
 
-def send_slack_api_with_csv(client, today)
+def send_slack_api_with_csv(client, today, comment)
   client.files_upload(
     channels: '#connpass_notification',
     as_user: true,
     file: Faraday::UploadIO.new('data/grouped_members.csv', 'text/csv'),
     title: "#{today} quattro groups",
     filename: 'grouped_members.csv',
-    initial_comment: 'Hello World'
+    initial_comment: comment
   )
 end
 
 client = setup_slack
 members = load_members(members)
 create_groups(numbers_of_group, groups, members)
-send_slack_api_with_csv(client, today)
+send_slack_api_with_csv(client, today, comment)
