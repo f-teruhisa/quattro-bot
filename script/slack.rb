@@ -44,24 +44,24 @@ end
 
 def generate_csv_file(members, numbers_of_group, groups)
   grouped_members_csv = CSV.generate do |csv|
-    split_members(members, numbers_of_group, groups)
-    csv << groups
+    split_members(members, numbers_of_group, groups, csv)
   end
   save_csv_file(grouped_members_csv)
 end
 
-def split_members(members, numbers_of_group, groups)
+def split_members(members, numbers_of_group, groups, csv)
   members.each_with_index do |member, i|
     number = i % numbers_of_group
     group = groups[number]
-    assign_member_into_groups(group, number+1, member)
+    assign_member_into_groups(group, number+1, member[0], csv)
   end
-  return groups
+  return csv
 end
 
-def assign_member_into_groups(group, number, member)
+def assign_member_into_groups(group, number, member, csv)
   group << number
   group << member
+  csv << group
 end
 
 def save_csv_file(grouped_members_csv)
