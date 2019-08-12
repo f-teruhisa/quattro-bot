@@ -55,13 +55,19 @@ def split_members(members, numbers_of_group, groups, csv)
     group = groups[number]
     assign_member_into_groups(group, number+1, member[0], csv)
   end
-  return csv
+  push_groups_into_csv_file(csv, groups)
 end
 
 def assign_member_into_groups(group, number, member, csv)
   group << number unless group.include?(number)
   group << member
-  csv << group
+end
+
+def push_groups_into_csv_file(csv, groups)
+  groups.each do |group|
+    csv << group
+  end
+  return csv
 end
 
 def save_csv_file(grouped_members_csv)
