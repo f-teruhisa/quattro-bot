@@ -20,6 +20,7 @@ This application reads environment variables set using `Dotenv` .
 ```
 SLACK_API_TOKEN= 
 NUMBERS_OF_GROUP=
+CHANNEL=
 COMMENT=
 ```
 ### SLACK_API_TOKEN
@@ -30,6 +31,9 @@ COMMENT=
 
 ### NUMBERS_OF_GROUP
 - Set the number of lunch groups as numeric data
+
+### CHANNEL
+- Write the channel you want to send Slack notifications, including `#`
 
 ### COMMENT
 - Set the comment of bot when notifying grouped CSV files
