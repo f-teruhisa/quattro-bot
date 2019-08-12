@@ -8,6 +8,7 @@ today = Date.today.strftime("%Y/%m/%d")
 groups, members = [], []
 numbers_of_group = ENV['NUMBERS_OF_GROUP'].to_i
 comment = ENV['COMMENT'].to_s
+channel = ENV['CHANNEL'].to_s
 
 def setup_slack
   set_slack_api_token
@@ -76,9 +77,9 @@ def save_csv_file(grouped_members_csv)
   end
 end
 
-def send_slack_api_with_csv(client, today, comment)
+def send_slack_api_with_csv(client, today, comment, channel)
   client.files_upload(
-    channels: '#クアトロランチ',
+    channels: channel,
     as_user: true,
     file: Faraday::UploadIO.new('data/grouped_members.csv', 'text/csv'),
     title: "#{today} quattro groups",
@@ -90,4 +91,4 @@ end
 client = setup_slack
 members = load_members(members)
 create_groups(numbers_of_group, groups, members)
-send_slack_api_with_csv(client, today, comment)
+send_slack_api_with_csv(client, today, comment, channel)
