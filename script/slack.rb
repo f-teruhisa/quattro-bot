@@ -78,7 +78,7 @@ end
 
 def send_slack_api_with_csv(client, today, comment)
   client.files_upload(
-    channels: '#connpass_notification',
+    channels: '#クアトロランチ',
     as_user: true,
     file: Faraday::UploadIO.new('data/grouped_members.csv', 'text/csv'),
     title: "#{today} quattro groups",
